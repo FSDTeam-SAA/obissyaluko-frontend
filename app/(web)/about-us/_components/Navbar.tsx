@@ -11,10 +11,11 @@ import Image from "next/image";
 const navItems = [
   { name: "Home", href: "/" },
   { name: "Visa Services", href: "/visa-services" },
-  { name: "Business", href: "/business" },
+  { name: "Study Abroad", href: "/study-abroad" },
   { name: "Tours", href: "/tours" },
-  { name: "About Us", href: "/about-us" },
-  { name: "Contact Us", href: "/contact-us" },
+  { name: "Consultation", href: "/consultation" },
+  { name: "Blogs", href: "/blogs" },
+  { name: "Contact ", href: "/contact-us" },
 ];
 
 
@@ -25,8 +26,8 @@ export default function Navbar() {
   const handleLinkClick = () => setOpen(false);
 
   return (
-    <header className="fixed top-2 left-0 w-full z-50">
-      <div className="container flex h-[84px] items-center justify-between px-4 sm:px-6 lg:px-8 mx-auto bg-white rounded-[12px] shadow-md">
+    <div className="w-full shadow-md bg-white ">
+      <div className="container flex h-[84px] items-center justify-between px-4 sm:px-6 lg:px-0 mx-auto  ">
         
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 flex-shrink-0">
@@ -88,6 +89,6 @@ export default function Navbar() {
           </SheetContent>
         </Sheet>
       </div>
-    </header>
+    </div>
   );
 }

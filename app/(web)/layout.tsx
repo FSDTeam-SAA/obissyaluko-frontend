@@ -10,7 +10,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <div className="bg-[#FAF6EE]">
       <div >
          <Navbar />
         {children}

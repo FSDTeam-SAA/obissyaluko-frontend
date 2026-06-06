@@ -33,7 +33,7 @@ export default function TestimonialSection() {
           </h2>
 
           <p className="mx-auto mt-4 max-w-2xl text-sm text-[#131313] md:text-sm">
-            Don&lsquo;t just take our word for it. Here&lsquo;s what real customers have to
+            Don&lsquo;t just take our word for it. Here&lsquo;vs what real customers have to
             say about their AutoIntel inspection experience.
           </p>
         </div>

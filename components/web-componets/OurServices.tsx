@@ -35,7 +35,7 @@ const services: Service[] = [
 
 export default function OurServices() {
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-16 ">
+    <section className="py-16 px-4 md:px-8 lg:px-20 ">
       <div className="container mx-auto">
         {/* Header */}
         <div className="text-center mb-12">

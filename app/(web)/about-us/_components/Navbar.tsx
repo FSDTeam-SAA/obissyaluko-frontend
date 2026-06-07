@@ -26,7 +26,7 @@ export default function Navbar() {
   const handleLinkClick = () => setOpen(false);
 
   return (
-    <div className="w-full shadow-md bg-white ">
+    <div className="w-full shadow-md bg-white sticky z-50 top-0">
       <div className="container flex h-[84px] items-center justify-between px-4 sm:px-6 lg:px-0 mx-auto  ">
         
         {/* Logo */}

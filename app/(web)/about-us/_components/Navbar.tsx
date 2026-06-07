@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -22,8 +24,11 @@ const navItems = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   const handleLinkClick = () => setOpen(false);
+  const isActiveLink = (href: string) =>
+    href === "/" ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <div className="w-full shadow-md bg-white sticky z-50 top-0">
@@ -36,15 +41,22 @@ export default function Navbar() {
 
         {/* Desktop Navigation (center aligned) */}
         <nav className="hidden lg:flex items-center gap-8 flex-1 justify-center">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-[18px] font-medium text-[#131313] transition-colors hover:text-[#F5B344]"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isActive = isActiveLink(item.href);
+
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  "relative pb-2 text-[18px] font-medium text-[#131313] transition-colors hover:text-[#12382B] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-center after:scale-x-0 after:rounded-full after:bg-[#12382B] after:transition-transform",
+                  isActive && "text-[#12382B] after:scale-x-100",
+                )}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Desktop Button */}
@@ -68,16 +80,23 @@ export default function Navbar() {
             </SheetHeader>
 
             <nav className="mt-8 flex flex-col space-y-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={handleLinkClick}
-                  className="block rounded-lg px-4 py-3 text-lg font-medium text-gray-900 transition-colors hover:bg-gray-100"
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navItems.map((item) => {
+                const isActive = isActiveLink(item.href);
+
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={handleLinkClick}
+                    className={cn(
+                      "w-fit border-b-2 border-transparent px-1 py-3 text-lg font-medium text-gray-900 transition-colors hover:text-[#12382B]",
+                      isActive && "border-[#12382B] text-[#12382B]",
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
             </nav>
 
             {/* Mobile Button */}

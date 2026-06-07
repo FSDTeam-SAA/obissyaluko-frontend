@@ -17,7 +17,7 @@ export default function TravelFilter() {
 
   return (
     <div
-      className="rounded-[14px] px-5 py-6 lg:px-6 lg:py-14"
+      className="w-full overflow-hidden rounded-[14px] px-3 py-4 sm:px-5 sm:py-6 lg:px-6 lg:py-14"
       style={{
         background: "linear-gradient(90deg, #FFFFFF 0%, #FAF6EE 100%)",
         boxShadow: `
@@ -29,7 +29,7 @@ export default function TravelFilter() {
       }}
     >
       {/* Tabs */}
-      <div className="flex flex-wrap items-start gap-4">
+      <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:items-start sm:justify-start sm:gap-4">
         {[
           {
             key: "visa",
@@ -53,7 +53,7 @@ export default function TravelFilter() {
             <button
               key={item.key}
               onClick={() => setActive(item.key)}
-              className={`flex h-[60px] w-[60px] flex-col items-center justify-center rounded-[8px] transition-all duration-200 ${
+              className={`flex h-[56px] w-full flex-col items-center justify-center rounded-[8px] transition-all duration-200 sm:h-[60px] sm:w-[60px] ${
                 active === item.key
                   ? "bg-[#CD9B46] text-white"
                   : "text-[#666666]"
@@ -70,14 +70,14 @@ export default function TravelFilter() {
 
       {/* VISA */}
       {active === "visa" && (
-        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-[1fr_1fr_130px]">
-          <div>
-            <label className="mb-2 block text-base font-medium text-[#8A8A8A]">
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:mt-6 sm:grid-cols-2 sm:gap-4 lg:grid-cols-[1fr_1fr_130px]">
+          <div className="min-w-0">
+            <label className="mb-2 block text-sm font-medium text-[#8A8A8A] sm:text-base">
               Choose your country
             </label>
 
             <Select defaultValue="canada">
-              <SelectTrigger className="h-[48px] rounded-lg border-[#D9D9D9] bg-white">
+              <SelectTrigger className="h-[46px] rounded-lg border-[#D9D9D9] bg-white sm:h-[48px]">
                 <SelectValue />
               </SelectTrigger>
 
@@ -90,13 +90,13 @@ export default function TravelFilter() {
             </Select>
           </div>
 
-          <div>
-            <label className="mb-2 block text-base font-medium text-[#8A8A8A]">
+          <div className="min-w-0">
+            <label className="mb-2 block text-sm font-medium text-[#8A8A8A] sm:text-base">
               Visit Purpose
             </label>
 
             <Select defaultValue="tourism">
-              <SelectTrigger className="h-[48px] rounded-lg border-[#D9D9D9] bg-white">
+              <SelectTrigger className="h-[46px] rounded-lg border-[#D9D9D9] bg-white sm:h-[48px]">
                 <SelectValue />
               </SelectTrigger>
 
@@ -109,8 +109,8 @@ export default function TravelFilter() {
             </Select>
           </div>
 
-          <div className="flex items-end">
-            <Button className="h-[48px] w-full rounded-lg bg-[#CD9B46] text-white hover:bg-[#c28f3d]">
+          <div className="flex items-end sm:col-span-2 lg:col-span-1">
+            <Button className="h-[46px] w-full rounded-lg bg-[#CD9B46] text-white hover:bg-[#c28f3d] sm:h-[48px]">
               Search
             </Button>
           </div>
@@ -119,14 +119,14 @@ export default function TravelFilter() {
 
       {/* FLIGHT */}
       {active === "flight" && (
-        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-4">
-          <div>
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:mt-6 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+          <div className="min-w-0">
             <label className="mb-2 block text-xs font-medium text-[#8A8A8A]">
               From
             </label>
 
             <Select>
-              <SelectTrigger className="h-[48px]">
+              <SelectTrigger className="h-[46px] sm:h-[48px]">
                 <SelectValue placeholder="Dhaka" />
               </SelectTrigger>
 
@@ -138,13 +138,13 @@ export default function TravelFilter() {
             </Select>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <label className="mb-2 block text-xs font-medium text-[#8A8A8A]">
               To
             </label>
 
             <Select>
-              <SelectTrigger className="h-[48px]">
+              <SelectTrigger className="h-[46px] sm:h-[48px]">
                 <SelectValue placeholder="London" />
               </SelectTrigger>
 
@@ -156,19 +156,19 @@ export default function TravelFilter() {
             </Select>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <label className="mb-2 block text-xs font-medium text-[#8A8A8A]">
               Travel Date
             </label>
 
             <input
               type="date"
-              className="h-[48px] w-full rounded-lg border border-[#D9D9D9] px-4"
+              className="h-[46px] w-full rounded-lg border border-[#D9D9D9] px-4 sm:h-[48px]"
             />
           </div>
 
-          <div className="flex items-end">
-            <Button className="h-[48px] w-full rounded-lg bg-[#CD9B46] hover:bg-[#c28f3d]">
+          <div className="flex items-end sm:col-span-2 lg:col-span-1">
+            <Button className="h-[46px] w-full rounded-lg bg-[#CD9B46] hover:bg-[#c28f3d] sm:h-[48px]">
               Search Flights
             </Button>
           </div>
@@ -177,14 +177,14 @@ export default function TravelFilter() {
 
       {/* HOTEL */}
       {active === "hotel" && (
-        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-4">
-          <div>
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:mt-6 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+          <div className="min-w-0">
             <label className="mb-2 block text-xs font-medium text-[#8A8A8A]">
               Destination
             </label>
 
             <Select>
-              <SelectTrigger className="h-[48px]">
+              <SelectTrigger className="h-[46px] sm:h-[48px]">
                 <SelectValue placeholder="Dubai" />
               </SelectTrigger>
 
@@ -196,30 +196,30 @@ export default function TravelFilter() {
             </Select>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <label className="mb-2 block text-xs font-medium text-[#8A8A8A]">
               Check In
             </label>
 
             <input
               type="date"
-              className="h-[48px] w-full rounded-lg border border-[#D9D9D9] px-4"
+              className="h-[46px] w-full rounded-lg border border-[#D9D9D9] px-4 sm:h-[48px]"
             />
           </div>
 
-          <div>
+          <div className="min-w-0">
             <label className="mb-2 block text-xs font-medium text-[#8A8A8A]">
               Check Out
             </label>
 
             <input
               type="date"
-              className="h-[48px] w-full rounded-lg border border-[#D9D9D9] px-4"
+              className="h-[46px] w-full rounded-lg border border-[#D9D9D9] px-4 sm:h-[48px]"
             />
           </div>
 
-          <div className="flex items-end">
-            <Button className="h-[48px] w-full rounded-lg bg-[#CD9B46] hover:bg-[#c28f3d]">
+          <div className="flex items-end sm:col-span-2 lg:col-span-1">
+            <Button className="h-[46px] w-full rounded-lg bg-[#CD9B46] hover:bg-[#c28f3d] sm:h-[48px]">
               Search Hotels
             </Button>
           </div>

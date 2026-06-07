@@ -1,14 +1,19 @@
-import React from 'react'
-import ContactSection from './_components/Contact_section'
-import Hero from '@/components/shared/Hero'
+import React from "react";
+import ContactSection from "./_components/Contact_section";
+import Banner from "@/components/shared/Banner";
 
 const page = () => {
   return (
     <div>
-         <Hero title="Contact Us" description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever " imageUrl="/assets/contactbg.jpg" height="583px"/>
-      <ContactSection/>
+      <Banner
+        title="Contact Us"
+        description="Choose your country, check your eligibility, upload documents, and pay securely — all in one place"
+        imageUrl="/assets/babble.png"
+        overlayColor="#00000066;"
+      />
+      <ContactSection />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

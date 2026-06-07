@@ -1,156 +1,103 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MessageCircle, Send } from "lucide-react"
+import Image from "next/image";
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    phoneNumber: "",
-    email: "",
-    message: "",
-  })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-  }
-
   return (
-    <section className="py-12 md:py-16 lg:py-20 px-4 md:px-6 lg:px-8 bg-background">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
+    <section className="py-10 lg:py-16 bg-[#f4f1eb]">
+      <div className="container mx-auto px-4">
+        <div className="overflow-hidden rounded-[24px] bg-white shadow-sm">
+          <div className="grid lg:grid-cols-2">
+            {/* Left Side */}
+            <div className="p-6 md:p-10 lg:p-12">
+              <h2 className="text-[34px] lg:text-[40px] font-bold text-[#5A8BD4] leading-tight">
+                Get in Touch
+              </h2>
 
-          {/* LEFT SIDE */}
-          <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Email */}
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-[#E7E7E7] flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-[#131313]" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg text-[#131313]">Email Address</h3>
-                  <p className="text-base text-[#616161] break-all">info@analyticsocar.com</p>
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-[#E7E7E7] flex items-center justify-center">
-                  <Phone className="w-5 h-5 text-[#131313]" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg text-[#131313]">Phone Number</h3>
-                  <p className="text-base text-[#616161]">+1954 549 6906</p>
-                </div>
-              </div>
-
-              {/* WhatsApp */}
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-[#E7E7E7] flex items-center justify-center">
-                  <MessageCircle className="w-5 h-5 text-[#131313]" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg text-[#131313]">WhatsApp</h3>
-                  <p className="text-base text-[#616161]">+1954 549 6906</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Description Box */}
-            <div className="bg-[#F8F8F8] p-6 rounded-[8px] mt-10">
-              <p className="text-[#616161] text-base leading-relaxed">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry&apos;s
-                standard dummy text ever since the 1500s. It has survived not only five centuries, but also the transition
-                into electronic typesetting, remaining essentially unchanged.
+              <p className="mt-2 text-[#6C757D] text-base">
+                Our friendly team would love to hear from you.
               </p>
+
+              <form className="mt-8 space-y-5">
+                <div>
+                  <label className="mb-2 block text-base font-medium text-[#343A40]">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Name Here"
+                    className="w-full rounded border border-gray-300 px-4 py-3 outline-none focus:border-[#4F7FD3]"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-base font-medium text-[#343A40]">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="hello@example.com"
+                    className="w-full rounded border border-gray-300 px-4 py-3 outline-none focus:border-[#4F7FD3]"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-base font-medium text-[#343A40]">
+                    Phone Number *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="+1234567890"
+                    className="w-full rounded border border-gray-300 px-4 py-3 outline-none focus:border-[#4F7FD3]"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-base font-medium text-[#343A40]">
+                    Subject *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter Subject"
+                    className="w-full rounded border border-gray-300 px-4 py-3 outline-none focus:border-[#4F7FD3]"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-base font-medium text-[#343A40]">
+                    Message *
+                  </label>
+                  <textarea
+                    rows={6}
+                    placeholder="Write your message here..."
+                    className="w-full resize-none rounded border border-gray-300 px-4 py-3 outline-none focus:border-[#4F7FD3]"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full rounded-[8px] bg-[#CD9B46] py-4 text-base font-semibold text-white transition hover:opacity-90"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+
+            {/* Right Side */}
+            <div className="relative min-h-[350px] lg:min-h-full ">
+              <div className="relative h-full w-full">
+                <Image
+                  src="/assets/contactus.png"
+                  alt="Travel"
+                  fill
+                  priority
+                  className="object-contain object-center "
+                />
+              </div>
             </div>
           </div>
-
-          {/* RIGHT SIDE — FORM */}
-          <div className="bg-[#FFF9EE] p-6 md:p-8 lg:p-10 rounded-[8px] shadow-sm">
-            <h2 className="text-2xl font-bold text-[#424242] mb-8">
-              Contact Information
-            </h2>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-
-              {/* Name + Phone */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-base font-medium text-[#2A2A2A] mb-2">
-                    Full Name <span className="text-destructive">*</span>
-                  </label>
-                  <Input
-                    placeholder="Enter your name"
-                    value={formData.fullName}
-                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="bg-white h-[48px] rounded-[8px] text-[#929292] placeholder:text-[#929292] border-none"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-base font-medium text-[#2A2A2A] mb-2">
-                    Phone Number <span className="text-destructive">*</span>
-                  </label>
-                  <Input
-                    placeholder="Enter phone number"
-                    value={formData.phoneNumber}
-                    onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                    className="bg-white h-[48px] rounded-[8px] text-[#929292] placeholder:text-[#929292] border-none"
-                    required
-                  />
-                </div>
-              </div>
-
-              {/* Email */}
-              <div>
-                <label className="block text-base font-medium text-[#2A2A2A] mb-2">
-                  Email Address <span className="text-destructive">*</span>
-                </label>
-                <Input
-                  type="email"
-                  placeholder="Enter email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="bg-white h-[48px] rounded-[8px] text-[#929292] placeholder:text-[#929292] border-none"
-                  required
-                />
-              </div>
-
-              {/* Message */}
-              <div>
-                <label className="block text-base font-medium text-[#2A2A2A] mb-2">
-                  Your Message
-                </label>
-                <Textarea
-                  placeholder="Tell us how we can help you"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="bg-white rounded-[8px] text-[#929292] placeholder:text-[#929292] border-none"
-                  rows={5}
-                />
-              </div>
-
-              {/* Submit Button */}
-              <Button
-                type="submit"
-                className="w-full bg-[#F5B547] hover:bg-[#F5B547]/90 text-xl text-white font-bold h-[50px] rounded-[8px]"
-              >
-                <Send className="w-5 h-5 mr-2 text-white" />
-                Send Message
-              </Button>
-            </form>
-          </div>
-
         </div>
       </div>
     </section>
-  )
+  );
 }

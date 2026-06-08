@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface Tour {
   id: number
@@ -151,6 +152,7 @@ export function FeaturedTours() {
 
         {/* Explore More Button */}
         <div className="flex justify-center">
+          <Link href="/tours">
           <Button
             variant="outline"
             className="border-[#CD9B46] h-12 rounded-[8px] text-[#CD9B46] hover:text-[#CD9B46] hover:scale-105 transition-transform duration-300 font-medium"
@@ -170,6 +172,7 @@ export function FeaturedTours() {
               />
             </svg>
           </Button>
+          </Link>
         </div>
       </div>
     </section>

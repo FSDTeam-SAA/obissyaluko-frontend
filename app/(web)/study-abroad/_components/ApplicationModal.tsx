@@ -20,7 +20,7 @@ export default function ApplicationModal({
 }: ApplicationModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[700px] !bg-white overflow-hidden rounded-xl p-0">
+      <DialogContent className="max-w-[700px] !bg-white overflow-hidden !rounded-[12px] p-0">
         {/* Header */}
         <div className="bg-[#D4A24B] px-8 py-8 text-white">
           <h2 className="text-3xl font-semibold">

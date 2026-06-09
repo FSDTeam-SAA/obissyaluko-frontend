@@ -6,7 +6,7 @@ const page = () => {
   return (
     <div>
       <Banner
-        title="Contact Us"
+        title="Contact Us by amit"
         description="Choose your country, check your eligibility, upload documents, and pay securely — all in one place"
         imageUrl="/assets/babble.png"
         overlayColor="#00000066;"

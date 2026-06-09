@@ -1,12 +1,14 @@
 'use client'
 
 import { Globe, BookOpen, MapPin, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 interface Service {
   id: number
   icon: React.ReactNode
   title: string
   description: string
+    link?: string
 }
 
 const services: Service[] = [
@@ -16,6 +18,7 @@ const services: Service[] = [
     title: 'Visa Services',
     description:
       'Expert visa processing for 150+ countries with guaranteed results and hassle-free experience',
+      link: '/visa-services'
   },
   {
     id: 2,
@@ -23,6 +26,7 @@ const services: Service[] = [
     title: 'Study Abroad',
     description:
       'University admissions, scholarship guidance and complete student support throughout your journey',
+      link: '/study-abroad'
   },
   {
     id: 3,
@@ -30,10 +34,12 @@ const services: Service[] = [
     title: 'Tour Packages',
     description:
       'Curated travel experiences with comprehensive itineraries and unforgettable destinations',
+      link: '/tours'
   },
 ]
 
 export default function OurServices() {
+
   return (
     <section className="py-12 md:py-16 lg:py-20 px-4 md:px-6 lg:px-8">
       <div className="container mx-auto">
@@ -73,10 +79,12 @@ export default function OurServices() {
               </p>
 
               {/* Learn More */}
+              <Link href={service.link || '#'}>
               <button className="inline-flex items-center gap-2 text-orange-400 font-semibold hover:text-orange-500 transition-colors duration-300 text-sm md:text-base">
                 Learn More
                 <ArrowRight size={16} />
               </button>
+              </Link>
             </div>
           ))}
         </div>

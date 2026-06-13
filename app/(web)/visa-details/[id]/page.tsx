@@ -2,7 +2,13 @@ import Banner from "@/components/shared/Banner";
 import React from "react";
 import VisaDetailsPage from "../_components/VisaDetailsPage";
 
-const page = () => {
+type VisaDetailsRoutePageProps = {
+  params: {
+    id: string;
+  };
+};
+
+const page = ({ params }: VisaDetailsRoutePageProps) => {
   return (
     <div>
       <Banner
@@ -11,7 +17,7 @@ const page = () => {
       with expert guidance."
         imageUrl="/assets/visaservices.png"
       />
-      <VisaDetailsPage/>
+      <VisaDetailsPage visaId={params.id} />
     </div>
   );
 };

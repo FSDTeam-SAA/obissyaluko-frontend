@@ -11,11 +11,13 @@ import {
 interface VisaApplicationModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  visaTitle?: string;
 }
 
 export default function VisaApplicationModal({
   open,
   onOpenChange,
+  visaTitle = "Visa",
 }: VisaApplicationModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -23,7 +25,7 @@ export default function VisaApplicationModal({
         {/* Header */}
         <DialogHeader className="bg-[#CD9B46] px-8 py-8 text-left">
           <DialogTitle className="text-white text-3xl font-bold">
-            Apply for UK Student Visa (Tier 4)
+            Apply for {visaTitle}
           </DialogTitle>
           <p className="text-white/90 text-sm mt-1">Fill out the form</p>
         </DialogHeader>

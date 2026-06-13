@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 interface VisaItem {
+  id: string;
   title: string;
 }
 
@@ -60,8 +61,8 @@ export default function CountryCard({
         <div className="space-y-2">
           {visas.map((visa, index) => (
             <Link
-              key={index}
-              href="/visa-details/1"
+              key={`${visa.id}-${index}`}
+              href={`/visa-details/${visa.id}`}
               className="flex w-full items-center justify-between rounded-lg border bg-[#F0F2F4] px-3 py-2 text-sm text-gray-600 hover:bg-gray-100"
             >
               {visa.title}

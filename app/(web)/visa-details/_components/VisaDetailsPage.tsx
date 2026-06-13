@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
 import {
   ArrowLeft,
   CheckCircle,
@@ -10,13 +11,97 @@ import {
   Circle,
 } from "lucide-react";
 import VisaApplicationModal from "./visa-application-modal";
+import VisaDetailsSkeleton from "./VisaDetailsSkeleton";
 
-export default function VisaDetailsPage() {
+type Visa = {
+  _id: string;
+  country: string;
+  visaTitle: string;
+  category: string;
+  description: string;
+  eligibility: string[];
+  processingSteps: string[];
+  requiredDocuments: string[];
+  processingTime: string;
+  price: number;
+};
+
+type VisaResponse = {
+  statusCode: number;
+  success: boolean;
+  message: string;
+  data: Visa;
+};
+
+type VisaDetailsPageProps = {
+  visaId: string;
+};
+
+function getVisaDetailsUrl(visaId: string) {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "") || "/api/v1";
+
+  return `${baseUrl}/visa/${encodeURIComponent(visaId)}`;
+}
+
+async function fetchVisaDetails(visaId: string) {
+  const response = await fetch(getVisaDetailsUrl(visaId));
+  const result = (await response.json().catch(() => null)) as VisaResponse | null;
+
+  if (!response.ok || !result?.success) {
+    throw new Error(result?.message || "Failed to fetch visa details.");
+  }
+
+  return result.data;
+}
+
+function formatCategory(category: string) {
+  return category
+    .split(/[\s-_]+/)
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+export default function VisaDetailsPage({ visaId }: VisaDetailsPageProps) {
   const [openModal, setOpenModal] = useState(false);
+
+  const {
+    data: visa,
+    error,
+    isPending,
+  } = useQuery<Visa, Error>({
+    queryKey: ["visa-details", visaId],
+    queryFn: () => fetchVisaDetails(visaId),
+    enabled: Boolean(visaId),
+  });
+
+  if (isPending) {
+    return <VisaDetailsSkeleton />;
+  }
+
+  if (error || !visa) {
+    return (
+      <section className="min-h-screen bg-[#f4f1eb] py-8 lg:py-12">
+        <div className="container mx-auto px-4">
+          <Link href="/visa-services">
+            <button className="mb-6 flex items-center gap-2 text-sm text-gray-600 hover:text-black">
+              <ArrowLeft size={16} />
+              Back to Visa Services
+            </button>
+          </Link>
+
+          <div className="rounded-lg border border-red-100 bg-red-50 px-4 py-5 text-sm text-red-600">
+            {error?.message || "Visa details not found."}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>
-      <section className="bg-[#f4f1eb] min-h-screen py-8 lg:py-12">
+      <section className="min-h-screen bg-[#f4f1eb] py-8 lg:py-12">
         <div className="container mx-auto px-4">
           {/* Back Button */}
           <Link href="/visa-services">
@@ -26,20 +111,29 @@ export default function VisaDetailsPage() {
             </button>
           </Link>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_280px]">
             {/* LEFT CONTENT */}
             <div className="space-y-5">
+              <div className="rounded-lg border bg-white p-5 shadow-sm">
+                <h1 className="text-2xl font-semibold text-[#131313]">
+                  {visa.visaTitle}
+                </h1>
+
+                <span className="mt-3 inline-flex rounded-full bg-[#F0F2F4] px-4 py-1 text-sm font-medium text-gray-700">
+                  {formatCategory(visa.category)}
+                </span>
+              </div>
+
               {/* Description */}
-              <div className="rounded-lg bg-white p-5 shadow-sm border">
+              <div className="rounded-lg border bg-white p-5 shadow-sm">
                 <p className="text-gray-600 leading-relaxed">
-                  The UK Student Visa allows international students to study
-                  at accredited institutions in the United Kingdom.
+                  {visa.description}
                 </p>
               </div>
 
               {/* Eligibility */}
-              <div className="rounded-lg bg-white p-5 shadow-sm border">
-                <div className="flex items-center gap-2 mb-4">
+              <div className="rounded-lg border bg-white p-5 shadow-sm">
+                <div className="mb-4 flex items-center gap-2">
                   <CheckCircle
                     size={20}
                     className="text-green-600"
@@ -50,24 +144,15 @@ export default function VisaDetailsPage() {
                 </div>
 
                 <ul className="space-y-2 text-[#616161]">
-                  <li>
-                    Must have a confirmed place at a UK educational institution
-                  </li>
-                  <li>
-                    Must prove English language proficiency
-                  </li>
-                  <li>
-                    Must show sufficient funds for tuition and living expenses
-                  </li>
-                  <li>
-                    Must be at least 16 years old
-                  </li>
+                  {visa.eligibility.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
                 </ul>
               </div>
 
               {/* Documents */}
-              <div className="rounded-lg bg-white p-5 shadow-sm border">
-                <div className="flex items-center gap-2 mb-4">
+              <div className="rounded-lg border bg-white p-5 shadow-sm">
+                <div className="mb-4 flex items-center gap-2">
                   <FileText
                     size={20}
                     className="text-blue-600"
@@ -78,14 +163,7 @@ export default function VisaDetailsPage() {
                 </div>
 
                 <ul className="space-y-3">
-                  {[
-                    "Valid passport",
-                    "CAS (Confirmation of Acceptance for Studies)",
-                    "Proof of English language proficiency",
-                    "Financial evidence",
-                    "Passport-size photographs",
-                    "TB test results",
-                  ].map((item) => (
+                  {visa.requiredDocuments.map((item) => (
                     <li
                       key={item}
                       className="flex items-center gap-2"
@@ -103,8 +181,8 @@ export default function VisaDetailsPage() {
               </div>
 
               {/* Processing Steps */}
-              <div className="rounded-lg bg-white p-5 shadow-sm border">
-                <div className="flex items-center gap-2 mb-4">
+              <div className="rounded-lg border bg-white p-5 shadow-sm">
+                <div className="mb-4 flex items-center gap-2">
                   <ListChecks
                     size={20}
                     className="text-blue-600"
@@ -115,14 +193,7 @@ export default function VisaDetailsPage() {
                 </div>
 
                 <ul className="space-y-3">
-                  {[
-                    "Gather required documents",
-                    "Complete online application",
-                    "Pay visa fee",
-                    "Book and attend biometrics appointment",
-                    "Submit supporting documents",
-                    "Wait for decision",
-                  ].map((item) => (
+                  {visa.processingSteps.map((item) => (
                     <li
                       key={item}
                       className="flex items-center gap-2"
@@ -140,8 +211,8 @@ export default function VisaDetailsPage() {
               </div>
 
               {/* Additional Info */}
-              <div className="rounded-lg bg-white p-5 shadow-sm border">
-                <div className="flex items-center gap-2 mb-4">
+              <div className="rounded-lg border bg-white p-5 shadow-sm">
+                <div className="mb-4 flex items-center gap-2">
                   <FileText
                     size={20}
                     className="text-blue-600"
@@ -152,8 +223,9 @@ export default function VisaDetailsPage() {
                 </div>
 
                 <p className="text-[#616161] leading-relaxed">
-                  Visa processing times may vary depending on
-                  application volume and embassy workload.
+                  This {formatCategory(visa.category)} visa usually takes{" "}
+                  {visa.processingTime} to process. Visa processing times may
+                  vary depending on application volume and embassy workload.
                   Applying early is strongly recommended.
                 </p>
               </div>
@@ -161,14 +233,14 @@ export default function VisaDetailsPage() {
 
             {/* RIGHT SIDEBAR */}
             <div>
-              <div className="sticky top-24 rounded-xl bg-white p-5 shadow-md border">
+              <div className="sticky top-24 rounded-xl border bg-white p-5 shadow-md">
                 <div className="mb-5">
                   <p className="text-sm text-gray-500">
                     Processing Fee
                   </p>
 
                   <h3 className="text-[42px] font-bold text-[#4285F4]">
-                    $490
+                    ${visa.price}
                   </h3>
 
                   <span className="text-sm text-gray-500">
@@ -182,7 +254,7 @@ export default function VisaDetailsPage() {
                   </p>
 
                   <h4 className="text-3xl font-semibold">
-                    3-4 Weeks
+                    {visa.processingTime}
                   </h4>
                 </div>
 
@@ -201,6 +273,7 @@ export default function VisaDetailsPage() {
       <VisaApplicationModal
         open={openModal}
         onOpenChange={setOpenModal}
+        visaTitle={visa.visaTitle}
       />
     </>
   );

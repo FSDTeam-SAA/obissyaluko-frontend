@@ -5,6 +5,7 @@ import { MapPin, Clock3, Users, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 interface TourCardProps {
+  id: string;
   image: string;
   title: string;
   country: string;
@@ -15,6 +16,7 @@ interface TourCardProps {
 }
 
 export default function TourCard({
+  id,
   image,
   title,
   country,
@@ -31,6 +33,7 @@ export default function TourCard({
           src={image}
           alt={title}
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
           className="object-cover"
         />
 
@@ -76,13 +79,11 @@ export default function TourCard({
         </div>
 
         {/* Button */}
-        <Link
-          href="/tours-details/1"
-          >
-        <button className="mt-6 flex h-[48px] w-full items-center justify-center gap-2 rounded-[8px] bg-[#CD9B46] text-sm font-medium text-white transition hover:bg-[#CD9B46]/90">
-          View Details
-          <ArrowRight size={16} />
-        </button>
+        <Link href={`/tours-details/${id}`}>
+          <button className="mt-6 flex h-[48px] w-full items-center justify-center gap-2 rounded-[8px] bg-[#CD9B46] text-sm font-medium text-white transition hover:bg-[#CD9B46]/90">
+            View Details
+            <ArrowRight size={16} />
+          </button>
         </Link>
       </div>
     </div>
